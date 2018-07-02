@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: portfolio-router
+  namespace: development
+  labels:
+    app: portfolio-router
+#  annotations:
+# GKE: create a static ip: gcloud compute addresses create ingress-ip --global
+# GKE: use a static ip: kubernetes.io/ingress.global-static-ip-name: ingress-ip
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: portfolio
+          servicePort: 8080
+      - path: /portfolio/*
+        backend:
+          serviceName: portfolio
+          servicePort: 8080
+#      - path: /portfolio-mgr/*
+#        backend:
+#          serviceName: portfolio-mgr
+#          servicePort: 80          
